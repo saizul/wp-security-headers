@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a header option, a CSP preset, a scan check, an export format or a developer hook.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security Headers stays focused: correct headers, safe rollout, clear explanations. No external services or tracking.
+        CSP recipes for popular plugins and services are very welcome.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do, and what gets in the way?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Could a filter such as `security_headers_headers` do this instead?
+  - type: checkboxes
+    id: build
+    attributes:
+      label: Contribution
+      options:
+        - label: I would like to open a pull request for this.

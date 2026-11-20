@@ -1,0 +1,103 @@
+name: Release zip
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  SLUG: wp-security-headers
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Check the version matches the tag
+        if: github.event_name == 'release'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          header=$(sed -n 's/^ \* Version: *//p' "$SLUG.php" | tr -d '[:space:]')
+          define=$(sed -n "s/^define( 'WP_SECURITY_HEADERS_VERSION', '\(.*\)' );/\1/p" "$SLUG.php" | tr -d '[:space:]')
+          constant=$(sed -n "s/^.*const VERSION = '\(.*\)';/\1/p" src/Plugin.php | tr -d '[:space:]')
+          stable=$(sed -n 's/^Stable tag: *//p' readme.txt | tr -d '[:space:]')
+          echo "tag=$tag header=$header define=$define constant=$constant stable=$stable"
+          test "$tag" = "$header"
+          test "$tag" = "$define"
+          test "$tag" = "$constant"
+          test "$tag" = "$stable"
+
+      - name: Build the plugin folder
+        run: |
+          mkdir -p "build/$SLUG"
+          rsync -a --exclude-from=.distignore ./ "build/$SLUG/"
+          # The plugin has no runtime Composer dependencies and no JavaScript build step.
+          test ! -e "build/$SLUG/vendor"
+          test ! -e "build/$SLUG/tests"
+          test ! -e "build/$SLUG/bin"
+          test ! -e "build/$SLUG/examples"
+          test -e "build/$SLUG/$SLUG.php"
+          test -e "build/$SLUG/uninstall.php"
+          test -e "build/$SLUG/src/Plugin.php"
+          test -e "build/$SLUG/src/HeaderBuilder.php"
+          test -e "build/$SLUG/src/Csp/Policy.php"
+          test -e "build/$SLUG/src/Reports/Endpoint.php"
+          test -e "build/$SLUG/src/Admin/SettingsPage.php"
+          test -e "build/$SLUG/src/Cli/Command.php"
+          test -e "build/$SLUG/languages/$SLUG.pot"
+          test -e "build/$SLUG/readme.txt"
+          test -e "build/$SLUG/LICENSE"
+          find "build/$SLUG" -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+          find "build/$SLUG" -type f | sort
+
+      - name: Smoke test the autoloader, the header builder and the grader
+        run: |
+          php -r '
+            define("ABSPATH", __DIR__);
+            function __($s, $d = "default") { return $s; }
+            function wp_parse_url($u, $c = -1) { return parse_url($u, $c); }
+            spl_autoload_register(function ($c) {
+              $prefix = "Saizul\\SecurityHeaders\\";
+              if (strpos($c, $prefix) === 0) { require "build/wp-security-headers/src/" . str_replace("\\", "/", substr($c, strlen($prefix))) . ".php"; }
+            });
+            $settings = array_merge(Saizul\SecurityHeaders\Settings::defaults(), array("hsts_enabled" => true, "csp_mode" => "enforce", "csp_nonce" => true));
+            $headers  = Saizul\SecurityHeaders\HeaderBuilder::build($settings, array("area" => "front", "https" => true, "nonce" => str_repeat("A", 22) . "==", "report_url" => "https://example.org/wp-json/security-headers/v1/report"));
+            $map = array();
+            foreach ($headers as $h) { $map[strtolower($h[0])] = $h[1]; }
+            $grade = Saizul\SecurityHeaders\Grader::grade($map, true);
+            $ok = isset($map["strict-transport-security"], $map["content-security-policy"])
+              && false !== strpos($map["content-security-policy"], "nonce-")
+              && in_array($grade["grade"], array("A", "B"), true);
+            echo $grade["grade"], " ", $grade["score"], "\n";
+            exit($ok ? 0 : 1);
+          '
+
+      - name: Create the zip
+        run: |
+          cd build
+          zip -r -q "../$SLUG.zip" "$SLUG"
+          cd ..
+          unzip -l "$SLUG.zip" | tail -n 1
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SLUG }}
+          path: ${{ env.SLUG }}.zip
+
+      - name: Attach to the release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "$GITHUB_REF_NAME" "$SLUG.zip" --clobber

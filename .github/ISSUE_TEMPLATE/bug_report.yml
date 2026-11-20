@@ -1,0 +1,48 @@
+name: Bug report
+description: A header is missing, wrong or breaks something, or the plugin does not work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! If a Content-Security-Policy breaks your site, set the CSP mode to Off (or Report-Only) first.
+        Please do not post passwords, cookies, tokens or private URLs.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. In Settings > Security Headers, set ...
+        2. Open ... as a logged-out visitor
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: headers
+    attributes:
+      label: Response headers
+      description: Output of `curl -sI https://your-site/` (remove anything private).
+      render: text
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: WordPress, PHP and plugin versions, web server, caching plugin, CDN or reverse proxy, single site or multisite.
+      placeholder: |
+        WordPress 7.0, PHP 8.3, Security Headers 0.1.0
+        Server: nginx / Apache / LiteSpeed
+        Cache / CDN: ...
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Output of `wp security-headers status --format=json` (optional)
+      render: json

@@ -1,0 +1,27 @@
+# Example workflow: grade a live site's headers every night and fail when it
+# drops below B. Runs WP-CLI over SSH on the server, so the scan is a
+# loopback request from the server itself.
+#
+# Needs repository secrets SSH_HOST, SSH_USER and SSH_KEY, and WP-CLI on
+# the server. Copy to .github/workflows/ in your site's repository.
+name: Security headers
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Grade the home page
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          install -m 600 /dev/null key
+          printf '%s\n' "$SSH_KEY" > key
+          ssh -i key -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" \
+            'cd ~/public_html && wp security-headers scan --fail-under=B'

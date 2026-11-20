@@ -1,0 +1,62 @@
+{
+    "name": "saizul/wp-security-headers",
+    "description": "Security Headers: add and test HTTP security headers in WordPress without editing server config. HSTS, CSP builder with nonces, Report-Only reporting and a violations screen, Permissions-Policy, A-F scan, nginx/Apache export and WP-CLI.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "keywords": [
+        "wordpress",
+        "security-headers",
+        "content-security-policy",
+        "csp",
+        "hsts",
+        "permissions-policy",
+        "wp-cli"
+    ],
+    "homepage": "https://github.com/saizul/wp-security-headers",
+    "authors": [
+        {
+            "name": "Saizul Amin",
+            "homepage": "https://saizul.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/saizul/wp-security-headers/issues",
+        "source": "https://github.com/saizul/wp-security-headers"
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Saizul\\SecurityHeaders\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Saizul\\SecurityHeaders\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf",
+        "make-pot": "php bin/make-pot.php"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.33"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

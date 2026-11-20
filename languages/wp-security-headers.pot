@@ -1,0 +1,907 @@
+# Copyright (C) 2026 Saizul Amin
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Security Headers 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/saizul/wp-security-headers/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Domain: wp-security-headers\n"
+
+#. Plugin Name of the plugin
+#: wp-security-headers.php src/Admin/SettingsPage.php:96 src/Admin/SettingsPage.php:97
+msgid "Security Headers"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wp-security-headers.php
+msgid "https://github.com/saizul/wp-security-headers"
+msgstr ""
+
+#. Description of the plugin
+#: wp-security-headers.php
+msgid "Add and test HTTP security headers without editing server config: HSTS, CSP builder with nonces and Report-Only reporting, Permissions-Policy, framing and cross-origin headers, an A-F scan and nginx/Apache export."
+msgstr ""
+
+#. Author of the plugin
+#: wp-security-headers.php
+msgid "Saizul Amin"
+msgstr ""
+
+#. Author URI of the plugin
+#: wp-security-headers.php
+msgid "https://saizul.com"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:74 src/Admin/SettingsPage.php:114
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:75
+msgid "Scan"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:76
+msgid "Violations"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:77
+msgid "Export"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:154
+msgid "Security Headers sections"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:184
+msgid "Important"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:185
+msgid "Check"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:186
+msgid "Tip"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:187
+msgid "Note"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:247
+msgid "Where to send headers"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:249
+msgid "Areas"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:250
+msgid "The front end always gets the headers."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:251
+msgid "Also send them in wp-admin (without Content-Security-Policy)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:252
+msgid "Also send them on wp-login.php (without Content-Security-Policy)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:253
+msgid "Remove the X-Powered-By header (hides the PHP version)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:257
+msgid "Strict-Transport-Security (HSTS)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:259
+msgid "HSTS"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:260
+msgid "Tell browsers to use HTTPS only (sent on HTTPS requests)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:262
+msgid "max-age"
+msgstr ""
+
+#. translators: %d: number of seconds.
+#: src/Admin/SettingsPage.php:270
+#, php-format
+msgid "%d seconds"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:275 src/Admin/SettingsPage.php:389
+msgid "Options"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:276
+msgid "includeSubDomains"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:277
+msgid "preload (also turns on includeSubDomains and at least 1 year)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:282
+msgid "Basic headers"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:284
+msgid "X-Content-Type-Options"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:285
+msgid "nosniff: browsers must not guess content types"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:287
+msgid "Referrer-Policy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:288 src/Admin/SettingsPage.php:307 src/Admin/SettingsPage.php:311
+msgid "Not sent"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:289
+msgid "strict-origin-when-cross-origin is the recommended value."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:291
+msgid "Framing"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:296
+msgid "Same origin only (X-Frame-Options: SAMEORIGIN, frame-ancestors 'self')"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:297
+msgid "Nobody (X-Frame-Options: DENY, frame-ancestors 'none')"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:298
+msgid "Not restricted"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:303
+msgid "Allowed framing origins (with \"Same origin only\"), one per line:"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:306
+msgid "Cross-Origin-Opener-Policy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:308
+msgid "same-origin-allow-popups keeps payment and social login popups working. same-origin is stricter."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:310
+msgid "Cross-Origin-Resource-Policy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:312
+msgid "Applies to responses WordPress generates (pages, feeds, REST). Static files are served by the web server."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:316
+msgid "Permissions-Policy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:317
+msgid "Tick a feature to restrict it. \"Nobody\" switches it off for the page and every embed; \"This site only\" allows your own pages but not embedded content."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:320
+msgid "Restrict"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:321
+msgid "Feature"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:322
+msgid "Allowed for"
+msgstr ""
+
+#. translators: %s: feature name.
+#: src/Admin/SettingsPage.php:338
+#, php-format
+msgid "Who may use %s"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:340
+msgid "Nobody"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:342
+msgid "This site only"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:363
+msgid "Off"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:364
+msgid "Report-Only: nothing is blocked, violations are reported (start here)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:365
+msgid "Enforce: violations are blocked"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:369
+msgid "Content-Security-Policy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:371
+msgid "Mode"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:383
+msgid "The policy is only sent on the front end. wp-admin and the block editor need inline scripts and are left alone."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:385
+msgid "Preset"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:387
+msgid "Load preset (replaces the directives below)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:390
+msgid "Add a nonce to script-src and to every script WordPress prints (wp_script_attributes / wp_inline_script_attributes)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:391
+msgid "upgrade-insecure-requests (load http:// resources over https://)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:392
+msgid "Send violation reports to this site (report-uri and report-to)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:400
+msgid "Reports"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:401
+msgid "Keep at most"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:401
+msgid "distinct violations"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:402
+msgid "Accept at most"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:402
+msgid "reports per minute from one visitor"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:404
+msgid "Preview"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:406
+msgid "Leave a field empty to fall back to default-src. Keywords such as self are quoted for you; invalid sources are dropped when you save."
+msgstr ""
+
+#: src/Admin/Tools.php:93
+msgid "The scan loads your home page from the server, like a visitor would, and grades the security headers it receives. Page caches and CDNs can add or strip headers, so this shows what visitors really get."
+msgstr ""
+
+#: src/Admin/Tools.php:97
+msgid "Scan my site"
+msgstr ""
+
+#: src/Admin/Tools.php:109
+msgid "Grade"
+msgstr ""
+
+#. translators: 1: points, 2: maximum points, 3: URL, 4: date and time.
+#: src/Admin/Tools.php:114
+#, php-format
+msgid "%1$d of %2$d points for %3$s, scanned %4$s."
+msgstr ""
+
+#: src/Admin/Tools.php:123
+msgid "Pass"
+msgstr ""
+
+#: src/Admin/Tools.php:124
+msgid "Improve"
+msgstr ""
+
+#: src/Admin/Tools.php:125
+msgid "Missing"
+msgstr ""
+
+#: src/Admin/Tools.php:126
+msgid "Info"
+msgstr ""
+
+#: src/Admin/Tools.php:131
+msgid "Header"
+msgstr ""
+
+#: src/Admin/Tools.php:132
+msgid "Result"
+msgstr ""
+
+#: src/Admin/Tools.php:133
+msgid "Points"
+msgstr ""
+
+#: src/Admin/Tools.php:134
+msgid "Details and fix"
+msgstr ""
+
+#: src/Admin/Tools.php:144
+msgid "Fix:"
+msgstr ""
+
+#: src/Admin/Tools.php:165
+msgid "Reports arrive while the CSP mode is Report-Only or Enforce and \"Send violation reports\" is on."
+msgstr ""
+
+#. translators: 1: number of violations, 2: maximum kept.
+#: src/Admin/Tools.php:172
+#, php-format
+msgid "%1$d distinct violation stored (at most %2$d are kept; the least recently seen are removed first)."
+msgid_plural "%1$d distinct violations stored (at most %2$d are kept; the least recently seen are removed first)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/Tools.php:179
+msgid "No violations yet. Browse your site with the policy in Report-Only mode, then come back."
+msgstr ""
+
+#: src/Admin/Tools.php:185
+msgid "Directive"
+msgstr ""
+
+#: src/Admin/Tools.php:186
+msgid "Blocked"
+msgstr ""
+
+#: src/Admin/Tools.php:187
+msgid "Hits"
+msgstr ""
+
+#: src/Admin/Tools.php:188
+msgid "Last page and source"
+msgstr ""
+
+#: src/Admin/Tools.php:189
+msgid "Suggestion"
+msgstr ""
+
+#: src/Admin/Tools.php:194
+msgid "report-only"
+msgstr ""
+
+#: src/Admin/Tools.php:214
+msgid "Delete all stored violations"
+msgstr ""
+
+#: src/Admin/Tools.php:227
+msgid "Prefer server configuration? Copy these snippets. They match the current settings for HTTPS requests. Server headers also cover static files and pages served by a full-page cache without PHP."
+msgstr ""
+
+#: src/Admin/Tools.php:240 src/Admin/Tools.php:257
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: src/Csp/Policy.php:442
+msgid "Nothing restricts scripts: add default-src or script-src."
+msgstr ""
+
+#: src/Csp/Policy.php:447
+msgid "script-src allows 'unsafe-inline', so injected inline scripts run. Turn on nonces and remove 'unsafe-inline' when your theme and plugins allow it."
+msgstr ""
+
+#: src/Csp/Policy.php:450
+msgid "Browsers ignore 'unsafe-inline' when a nonce, hash or 'strict-dynamic' is present. It only helps very old browsers, and inline scripts without the nonce are blocked."
+msgstr ""
+
+#: src/Csp/Policy.php:453
+msgid "script-src allows 'unsafe-eval' (eval() and new Function()). Remove it unless a script you trust needs it."
+msgstr ""
+
+#. translators: %s: source expressions such as https: or *.
+#: src/Csp/Policy.php:462
+#, php-format
+msgid "script-src allows %s, which lets scripts load from almost anywhere. List the hosts you need instead."
+msgstr ""
+
+#: src/Csp/Policy.php:471
+msgid "Set object-src 'none' to block plugins such as Flash and <object> embeds."
+msgstr ""
+
+#: src/Csp/Policy.php:474
+msgid "Set base-uri 'self' (or 'none') so injected <base> tags cannot redirect relative script URLs."
+msgstr ""
+
+#: src/Csp/Policy.php:477
+msgid "Add default-src as a fallback for the directives you did not set."
+msgstr ""
+
+#. translators: %s: directive name.
+#: src/Csp/Policy.php:487
+#, php-format
+msgid "%s allows plain http sources. Use https."
+msgstr ""
+
+#: src/Csp/Presets.php:38
+msgid "Strict (nonce + strict-dynamic, for sites you control end to end)"
+msgstr ""
+
+#: src/Csp/Presets.php:39
+msgid "WordPress-compatible (works with most themes and plugins)"
+msgstr ""
+
+#: src/Csp/Presets.php:40
+msgid "WooCommerce-compatible (adds Stripe, PayPal and Google Pay)"
+msgstr ""
+
+#: src/Export.php:50
+msgid "Remove or switch off the plugin headers you move to the server, so they are not sent twice."
+msgstr ""
+
+#: src/Export.php:53
+msgid "Nonces are left out: the server cannot add a fresh nonce to each page. Keep the CSP in the plugin if you rely on nonces."
+msgstr ""
+
+#: src/Export.php:56
+msgid "The report endpoint only accepts reports while the plugin CSP mode is Report-Only or Enforce. If you switch the plugin CSP off, remove report-uri, report-to and Reporting-Endpoints too."
+msgstr ""
+
+#: src/Export.php:59
+msgid "Send Strict-Transport-Security from the HTTPS server block / virtual host only."
+msgstr ""
+
+#: src/Grader.php:140
+msgid "In Settings > Security Headers, pick a CSP preset, run it in Report-Only mode for a while, fix the violations, then switch to Enforce."
+msgstr ""
+
+#: src/Grader.php:153
+msgid "Only a Report-Only policy is sent. It reports problems but blocks nothing."
+msgstr ""
+
+#: src/Grader.php:153
+msgid "Check the violations screen, adjust the policy and switch the mode to Enforce."
+msgstr ""
+
+#: src/Grader.php:156
+msgid "A policy is sent, but nothing in it restricts scripts (no default-src or script-src)."
+msgstr ""
+
+#: src/Grader.php:159
+msgid "No Content-Security-Policy. It is the main defence against cross-site scripting (XSS)."
+msgstr ""
+
+#: src/Grader.php:179
+msgid "An enforced policy restricts scripts."
+msgstr ""
+
+#: src/Grader.php:182
+msgid "An enforced policy is sent, but it has weak spots."
+msgstr ""
+
+#: src/Grader.php:195
+msgid "The site was scanned over plain HTTP. HSTS only works on HTTPS."
+msgstr ""
+
+#: src/Grader.php:195
+msgid "Install a certificate, change the site address to https:// in Settings > General, then turn on HSTS."
+msgstr ""
+
+#: src/Grader.php:198
+msgid "Turn on HSTS in Settings > Security Headers. Start with a short max-age, then raise it to 1 year or more."
+msgstr ""
+
+#: src/Grader.php:200
+msgid "Missing. Browsers may still try plain HTTP first, which can be intercepted."
+msgstr ""
+
+#: src/Grader.php:204
+msgid "max-age is 0 or missing, which switches HSTS off."
+msgstr ""
+
+#: src/Grader.php:207
+msgid "max-age is shorter than 6 months."
+msgstr ""
+
+#: src/Grader.php:207
+msgid "Raise max-age to 31536000 (1 year) once every page works over HTTPS."
+msgstr ""
+
+#: src/Grader.php:210
+msgid "Browsers will only use HTTPS for this site."
+msgstr ""
+
+#: src/Grader.php:223
+msgid "frame-ancestors controls who can embed the site."
+msgstr ""
+
+#: src/Grader.php:228
+msgid "X-Frame-Options blocks embedding by other sites."
+msgstr ""
+
+#: src/Grader.php:230
+msgid "Set \"Framing\" to \"Same origin only\" or \"Nobody\" in Settings > Security Headers."
+msgstr ""
+
+#: src/Grader.php:232
+msgid "X-Frame-Options has a value browsers no longer support (such as ALLOW-FROM)."
+msgstr ""
+
+#: src/Grader.php:235
+msgid "Any site can embed yours in a frame (clickjacking)."
+msgstr ""
+
+#: src/Grader.php:246
+msgid "Browsers will not guess content types."
+msgstr ""
+
+#: src/Grader.php:249
+msgid "Missing. Browsers may treat uploaded files as scripts or styles."
+msgstr ""
+
+#: src/Grader.php:249
+msgid "Turn on X-Content-Type-Options: nosniff in Settings > Security Headers."
+msgstr ""
+
+#: src/Grader.php:260
+msgid "Set Referrer-Policy to strict-origin-when-cross-origin in Settings > Security Headers."
+msgstr ""
+
+#: src/Grader.php:263
+msgid "Missing. Modern browsers default to strict-origin-when-cross-origin, older ones send full URLs to other sites."
+msgstr ""
+
+#: src/Grader.php:273
+msgid "Full URLs are not sent to other sites."
+msgstr ""
+
+#: src/Grader.php:276
+msgid "The origin is sent even from HTTPS to HTTP pages."
+msgstr ""
+
+#: src/Grader.php:279
+msgid "Full URLs, including query strings, can leak to other sites."
+msgstr ""
+
+#: src/Grader.php:289
+msgid "Open the Permissions-Policy builder in Settings > Security Headers and switch off the features your site does not use."
+msgstr ""
+
+#: src/Grader.php:291
+msgid "Browser features such as camera and location are restricted."
+msgstr ""
+
+#: src/Grader.php:294
+msgid "Only the old Feature-Policy header is sent."
+msgstr ""
+
+#: src/Grader.php:297
+msgid "Missing. Embedded content may ask for camera, microphone or location."
+msgstr ""
+
+#: src/Grader.php:309
+msgid "Other sites opened in a popup cannot reach this window."
+msgstr ""
+
+#: src/Grader.php:312
+msgid "Not set. Pages from other origins keep a reference to this window."
+msgstr ""
+
+#: src/Grader.php:312
+msgid "Set Cross-Origin-Opener-Policy to same-origin-allow-popups (safe with most payment and login popups)."
+msgstr ""
+
+#: src/Grader.php:324
+msgid "Other sites cannot load this response as a resource."
+msgstr ""
+
+#: src/Grader.php:327
+msgid "Set to cross-origin, which allows every site."
+msgstr ""
+
+#: src/Grader.php:330
+msgid "Not set."
+msgstr ""
+
+#: src/Grader.php:330
+msgid "Set Cross-Origin-Resource-Policy to same-site for pages. Images and fonts loaded by other sites are served by the web server, not by this header."
+msgstr ""
+
+#. translators: %s: header value.
+#: src/Grader.php:343
+#, php-format
+msgid "Reveals \"%s\"."
+msgstr ""
+
+#: src/Grader.php:343
+msgid "Turn on \"Remove X-Powered-By\", or set expose_php = Off in php.ini."
+msgstr ""
+
+#. translators: %s: header value.
+#: src/Grader.php:347
+#, php-format
+msgid "Reveals the server version \"%s\"."
+msgstr ""
+
+#: src/Grader.php:347
+msgid "Hide the version in the web server (server_tokens off in nginx, ServerTokens Prod in Apache)."
+msgstr ""
+
+#: src/Grader.php:351
+msgid "This header is obsolete and its filter could be abused in old browsers."
+msgstr ""
+
+#: src/Grader.php:351
+msgid "Remove it or set it to 0, and rely on Content-Security-Policy."
+msgstr ""
+
+#: src/Hsts.php:44
+msgid "5 minutes (testing)"
+msgstr ""
+
+#: src/Hsts.php:45
+msgid "1 day"
+msgstr ""
+
+#: src/Hsts.php:46
+msgid "1 week"
+msgstr ""
+
+#: src/Hsts.php:47
+msgid "30 days"
+msgstr ""
+
+#: src/Hsts.php:48
+msgid "180 days"
+msgstr ""
+
+#: src/Hsts.php:49
+msgid "1 year (needed for preload)"
+msgstr ""
+
+#: src/Hsts.php:50
+msgid "2 years (recommended once stable)"
+msgstr ""
+
+#: src/Hsts.php:71
+msgid "Your site address does not start with https://. Browsers ignore HSTS sent over plain HTTP, so the header is only sent on HTTPS requests. Move the site to HTTPS first."
+msgstr ""
+
+#: src/Hsts.php:76
+msgid "A short max-age is a good way to start. Raise it to at least 1 year once every page works over HTTPS."
+msgstr ""
+
+#: src/Hsts.php:80
+msgid "includeSubDomains applies to every subdomain (www, shop, staging, mail web interfaces and so on). Each of them must serve a valid HTTPS certificate, or visitors cannot open it until max-age expires."
+msgstr ""
+
+#: src/Hsts.php:87
+msgid "Preload is hard to undo: browsers ship the list, and removal takes months. Only submit your domain at hstspreload.org when you are sure every subdomain will stay on HTTPS."
+msgstr ""
+
+#: src/Hsts.php:89
+msgid "The preload list requires max-age of at least 31536000 seconds (1 year)."
+msgstr ""
+
+#: src/Hsts.php:92
+msgid "The preload list requires includeSubDomains."
+msgstr ""
+
+#: src/Hsts.php:94
+msgid "http:// must redirect to https:// on the same host before any other redirect (for example http://example.com to https://example.com, not straight to https://www.example.com)."
+msgstr ""
+
+#. translators: %s: host name of the site.
+#: src/Hsts.php:102
+#, php-format
+msgid "Preloading is done for the registrable domain, not for %s. The header must also be sent by the bare domain (for example by your host or CDN), with the same settings."
+msgstr ""
+
+#: src/PermissionsPolicy.php:27
+msgid "Motion sensors (accelerometer). Some video embeds ask for it."
+msgstr ""
+
+#: src/PermissionsPolicy.php:28
+msgid "Autoplay of media with sound."
+msgstr ""
+
+#: src/PermissionsPolicy.php:29
+msgid "Web Bluetooth."
+msgstr ""
+
+#: src/PermissionsPolicy.php:30
+msgid "Topics API (interest-based advertising)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:31
+msgid "Camera."
+msgstr ""
+
+#: src/PermissionsPolicy.php:32
+msgid "Screen capture."
+msgstr ""
+
+#: src/PermissionsPolicy.php:33
+msgid "Encrypted media (DRM video)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:34
+msgid "Fullscreen. Video embeds need it."
+msgstr ""
+
+#: src/PermissionsPolicy.php:35
+msgid "Location. Store locators and maps may need it."
+msgstr ""
+
+#: src/PermissionsPolicy.php:36
+msgid "Motion sensors (gyroscope)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:37
+msgid "WebHID devices."
+msgstr ""
+
+#: src/PermissionsPolicy.php:38
+msgid "Idle detection."
+msgstr ""
+
+#: src/PermissionsPolicy.php:39
+msgid "Magnetometer."
+msgstr ""
+
+#: src/PermissionsPolicy.php:40
+msgid "Microphone."
+msgstr ""
+
+#: src/PermissionsPolicy.php:41
+msgid "Web MIDI."
+msgstr ""
+
+#: src/PermissionsPolicy.php:42
+msgid "Payment Request API. Apple Pay and Google Pay buttons need it."
+msgstr ""
+
+#: src/PermissionsPolicy.php:43
+msgid "Picture-in-picture video."
+msgstr ""
+
+#: src/PermissionsPolicy.php:44
+msgid "Passkeys and security keys (WebAuthn) in frames."
+msgstr ""
+
+#: src/PermissionsPolicy.php:45
+msgid "Keep the screen awake."
+msgstr ""
+
+#: src/PermissionsPolicy.php:46
+msgid "Web Serial."
+msgstr ""
+
+#: src/PermissionsPolicy.php:47
+msgid "WebUSB."
+msgstr ""
+
+#: src/PermissionsPolicy.php:48
+msgid "Web Share."
+msgstr ""
+
+#: src/PermissionsPolicy.php:49
+msgid "VR and AR (WebXR)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:50
+msgid "One-time codes from SMS (WebOTP)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:51
+msgid "Federated sign-in (FedCM)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:52
+msgid "Attribution Reporting API (ad conversion measurement)."
+msgstr ""
+
+#: src/PermissionsPolicy.php:53
+msgid "Private State Tokens: issuing."
+msgstr ""
+
+#: src/PermissionsPolicy.php:54
+msgid "Private State Tokens: redeeming."
+msgstr ""
+
+#: src/Reports/Suggest.php:53
+msgid "An inline event handler or style attribute was blocked (for example onclick=\"...\"). Rewrite it with addEventListener() or a stylesheet; 'unsafe-hashes' with a hash is the narrow alternative."
+msgstr ""
+
+#: src/Reports/Suggest.php:56
+msgid "An inline <script> was blocked. Turn on nonces (scripts printed with wp_add_inline_script() and wp_print_inline_script_tag() get one automatically), or move the code into a file. Adding 'unsafe-inline' to script-src works but weakens the policy."
+msgstr ""
+
+#. translators: %s: directive name.
+#: src/Reports/Suggest.php:61
+#, php-format
+msgid "An inline <style> was blocked. Add 'unsafe-inline' to %s (inline styles are a much smaller risk than inline scripts)."
+msgstr ""
+
+#: src/Reports/Suggest.php:66
+msgid "A script used eval() or new Function(). Find the script in \"Source\" and add 'unsafe-eval' to script-src only if you trust it and cannot replace it."
+msgstr ""
+
+#: src/Reports/Suggest.php:69
+msgid "WebAssembly was blocked. Add 'wasm-unsafe-eval' to script-src if the site needs it."
+msgstr ""
+
+#. translators: %s: data: or blob:.
+#: src/Reports/Suggest.php:75
+#, php-format
+msgid "A script was loaded from %s. Allowing it in script-src is risky; find the plugin that does this first."
+msgstr ""
+
+#. translators: 1: data: or blob:, 2: directive name.
+#: src/Reports/Suggest.php:82
+#, php-format
+msgid "Add %1$s to %2$s."
+msgstr ""
+
+#: src/Reports/Suggest.php:88
+msgid "Another site tried to embed this page. If you trust it, add its origin to \"Allowed framing origins\"."
+msgstr ""
+
+#. translators: %s: origin.
+#: src/Reports/Suggest.php:96
+#, php-format
+msgid "%s is plain HTTP. Load it over HTTPS (upgrade-insecure-requests does this automatically when it is on and the host supports HTTPS)."
+msgstr ""
+
+#. translators: 1: origin such as https://cdn.example.com, 2: directive name.
+#: src/Reports/Suggest.php:103
+#, php-format
+msgid "If you trust %1$s, add it to %2$s."
+msgstr ""
+
+#. translators: %s: directive name.
+#: src/Reports/Suggest.php:111
+#, php-format
+msgid "Check the source file and decide whether %s should allow it."
+msgstr ""
+
+#: src/Reports/Suggest.php:112
+msgid "the policy"
+msgstr ""
+
+#: src/Scanner.php:30
+msgid "Only http:// and https:// URLs can be scanned."
+msgstr ""
+
+#. translators: 1: URL, 2: error message.
+#: src/Scanner.php:52
+#, php-format
+msgid "Could not load %1$s: %2$s. Loopback requests may be blocked by your host or firewall; try \"wp security-headers scan\" or an online scanner."
+msgstr ""
+
+#: src/Scanner.php:80
+msgid "Too many redirects."
+msgstr ""
+
+#: wp-security-headers.php:26
+msgid "Security Headers requires PHP 7.4 or newer."
+msgstr ""
