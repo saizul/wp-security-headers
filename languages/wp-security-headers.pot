@@ -470,188 +470,214 @@ msgstr ""
 msgid "Send Strict-Transport-Security from the HTTPS server block / virtual host only."
 msgstr ""
 
-#: src/Grader.php:140
+#: src/Grader.php:160
 msgid "In Settings > Security Headers, pick a CSP preset, run it in Report-Only mode for a while, fix the violations, then switch to Enforce."
 msgstr ""
 
-#: src/Grader.php:153
+#: src/Grader.php:173
 msgid "Only a Report-Only policy is sent. It reports problems but blocks nothing."
 msgstr ""
 
-#: src/Grader.php:153
+#: src/Grader.php:173
 msgid "Check the violations screen, adjust the policy and switch the mode to Enforce."
 msgstr ""
 
-#: src/Grader.php:156
+#: src/Grader.php:176
 msgid "A policy is sent, but nothing in it restricts scripts (no default-src or script-src)."
 msgstr ""
 
-#: src/Grader.php:159
+#: src/Grader.php:179
 msgid "No Content-Security-Policy. It is the main defence against cross-site scripting (XSS)."
 msgstr ""
 
-#: src/Grader.php:179
+#: src/Grader.php:199
 msgid "An enforced policy restricts scripts."
 msgstr ""
 
-#: src/Grader.php:182
+#: src/Grader.php:202
 msgid "An enforced policy is sent, but it has weak spots."
 msgstr ""
 
-#: src/Grader.php:195
+#: src/Grader.php:215
 msgid "The site was scanned over plain HTTP. HSTS only works on HTTPS."
 msgstr ""
 
-#: src/Grader.php:195
+#: src/Grader.php:215
 msgid "Install a certificate, change the site address to https:// in Settings > General, then turn on HSTS."
 msgstr ""
 
-#: src/Grader.php:198
+#: src/Grader.php:218
 msgid "Turn on HSTS in Settings > Security Headers. Start with a short max-age, then raise it to 1 year or more."
 msgstr ""
 
-#: src/Grader.php:200
+#: src/Grader.php:220
 msgid "Missing. Browsers may still try plain HTTP first, which can be intercepted."
 msgstr ""
 
-#: src/Grader.php:204
+#: src/Grader.php:224
 msgid "max-age is 0 or missing, which switches HSTS off."
 msgstr ""
 
-#: src/Grader.php:207
+#: src/Grader.php:227
 msgid "max-age is shorter than 6 months."
 msgstr ""
 
-#: src/Grader.php:207
+#: src/Grader.php:227
 msgid "Raise max-age to 31536000 (1 year) once every page works over HTTPS."
 msgstr ""
 
-#: src/Grader.php:210
+#: src/Grader.php:230
 msgid "Browsers will only use HTTPS for this site."
 msgstr ""
 
-#: src/Grader.php:223
+#: src/Grader.php:243
 msgid "frame-ancestors controls who can embed the site."
 msgstr ""
 
-#: src/Grader.php:228
-msgid "X-Frame-Options blocks embedding by other sites."
-msgstr ""
-
-#: src/Grader.php:230
+#: src/Grader.php:247
 msgid "Set \"Framing\" to \"Same origin only\" or \"Nobody\" in Settings > Security Headers."
 msgstr ""
 
-#: src/Grader.php:232
+#. translators: %s: header values.
+#: src/Grader.php:249
+#, php-format
+msgid "X-Frame-Options is sent with conflicting values (%s), so browsers ignore it."
+msgstr ""
+
+#: src/Grader.php:249
+msgid "Send X-Frame-Options from one place only (this plugin, the web server or the CDN), or add frame-ancestors to the Content-Security-Policy."
+msgstr ""
+
+#: src/Grader.php:253
+msgid "X-Frame-Options blocks embedding by other sites."
+msgstr ""
+
+#: src/Grader.php:256
 msgid "X-Frame-Options has a value browsers no longer support (such as ALLOW-FROM)."
 msgstr ""
 
-#: src/Grader.php:235
+#: src/Grader.php:259
 msgid "Any site can embed yours in a frame (clickjacking)."
 msgstr ""
 
-#: src/Grader.php:246
+#: src/Grader.php:270
 msgid "Browsers will not guess content types."
 msgstr ""
 
-#: src/Grader.php:249
+#: src/Grader.php:273
 msgid "Missing. Browsers may treat uploaded files as scripts or styles."
 msgstr ""
 
-#: src/Grader.php:249
+#: src/Grader.php:273
 msgid "Turn on X-Content-Type-Options: nosniff in Settings > Security Headers."
 msgstr ""
 
-#: src/Grader.php:260
+#: src/Grader.php:284
 msgid "Set Referrer-Policy to strict-origin-when-cross-origin in Settings > Security Headers."
 msgstr ""
 
-#: src/Grader.php:263
+#: src/Grader.php:287
 msgid "Missing. Modern browsers default to strict-origin-when-cross-origin, older ones send full URLs to other sites."
 msgstr ""
 
-#: src/Grader.php:273
+#: src/Grader.php:297
 msgid "Full URLs are not sent to other sites."
 msgstr ""
 
-#: src/Grader.php:276
+#: src/Grader.php:300
 msgid "The origin is sent even from HTTPS to HTTP pages."
 msgstr ""
 
-#: src/Grader.php:279
+#: src/Grader.php:303
 msgid "Full URLs, including query strings, can leak to other sites."
 msgstr ""
 
-#: src/Grader.php:289
+#: src/Grader.php:313
 msgid "Open the Permissions-Policy builder in Settings > Security Headers and switch off the features your site does not use."
 msgstr ""
 
-#: src/Grader.php:291
+#: src/Grader.php:315
 msgid "Browser features such as camera and location are restricted."
 msgstr ""
 
-#: src/Grader.php:294
+#: src/Grader.php:318
 msgid "Only the old Feature-Policy header is sent."
 msgstr ""
 
-#: src/Grader.php:297
+#: src/Grader.php:321
 msgid "Missing. Embedded content may ask for camera, microphone or location."
 msgstr ""
 
-#: src/Grader.php:309
+#: src/Grader.php:333
 msgid "Other sites opened in a popup cannot reach this window."
 msgstr ""
 
-#: src/Grader.php:312
+#: src/Grader.php:336
 msgid "Not set. Pages from other origins keep a reference to this window."
 msgstr ""
 
-#: src/Grader.php:312
+#: src/Grader.php:336
 msgid "Set Cross-Origin-Opener-Policy to same-origin-allow-popups (safe with most payment and login popups)."
 msgstr ""
 
-#: src/Grader.php:324
+#: src/Grader.php:348
 msgid "Other sites cannot load this response as a resource."
 msgstr ""
 
-#: src/Grader.php:327
+#: src/Grader.php:351
 msgid "Set to cross-origin, which allows every site."
 msgstr ""
 
-#: src/Grader.php:330
+#: src/Grader.php:354
 msgid "Not set."
 msgstr ""
 
-#: src/Grader.php:330
+#: src/Grader.php:354
 msgid "Set Cross-Origin-Resource-Policy to same-site for pages. Images and fonts loaded by other sites are served by the web server, not by this header."
 msgstr ""
 
 #. translators: %s: header value.
-#: src/Grader.php:343
+#: src/Grader.php:367
 #, php-format
 msgid "Reveals \"%s\"."
 msgstr ""
 
-#: src/Grader.php:343
+#: src/Grader.php:367
 msgid "Turn on \"Remove X-Powered-By\", or set expose_php = Off in php.ini."
 msgstr ""
 
 #. translators: %s: header value.
-#: src/Grader.php:347
+#: src/Grader.php:371
 #, php-format
 msgid "Reveals the server version \"%s\"."
 msgstr ""
 
-#: src/Grader.php:347
+#: src/Grader.php:371
 msgid "Hide the version in the web server (server_tokens off in nginx, ServerTokens Prod in Apache)."
 msgstr ""
 
-#: src/Grader.php:351
+#: src/Grader.php:375
 msgid "This header is obsolete and its filter could be abused in old browsers."
 msgstr ""
 
-#: src/Grader.php:351
+#: src/Grader.php:375
 msgid "Remove it or set it to 0, and rely on Content-Security-Policy."
+msgstr ""
+
+#. translators: 1: header name, 2: number of times.
+#: src/Grader.php:398
+#, php-format
+msgid "%1$s is sent %2$d times with the same value."
+msgstr ""
+
+#. translators: 1: header name, 2: number of times, 3: the values.
+#: src/Grader.php:401
+#, php-format
+msgid "%1$s is sent %2$d times with different values (%3$s); browsers use the first one or ignore the header."
+msgstr ""
+
+#: src/Grader.php:403
+msgid "The header is set in two places, usually this plugin and the web server or CDN. Switch it off in one of them."
 msgstr ""
 
 #: src/Hsts.php:44
