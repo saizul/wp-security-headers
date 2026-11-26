@@ -191,4 +191,41 @@ final class GraderTest extends WpTestCase {
 			)
 		);
 	}
+
+	public function test_duplicate_headers_joined_by_a_proxy_still_pass(): void {
+		$headers                              = self::perfect();
+		$headers['X-Content-Type-Options']    = 'nosniff, nosniff';
+		$headers['Strict-Transport-Security'] = array( 'max-age=63072000; includeSubDomains; preload', 'max-age=31536000' );
+		$result                               = Grader::grade( $headers, true );
+		$found                                = self::by_key( $result );
+
+		$this->assertSame( 'pass', $found['nosniff']['status'] );
+		$this->assertSame( 'pass', $found['hsts']['status'], 'browsers use the first HSTS header' );
+		$this->assertSame( 100, $result['score'] );
+		$this->assertSame( 'info', $found['duplicate_x_content_type_options']['status'] );
+		$this->assertStringContainsString( 'X-Content-Type-Options is sent 2 times with the same value', $found['duplicate_x_content_type_options']['message'] );
+		$this->assertStringContainsString( 'different values', $found['duplicate_strict_transport_security']['message'] );
+		$this->assertNotSame( '', $found['duplicate_strict_transport_security']['fix'] );
+	}
+
+	public function test_conflicting_x_frame_options_fail_unless_frame_ancestors(): void {
+		$headers = array( 'X-Frame-Options' => 'SAMEORIGIN, DENY' );
+		$found   = self::by_key( Grader::grade( $headers, true ) );
+		$this->assertSame( 'fail', $found['framing']['status'] );
+		$this->assertStringContainsString( 'conflicting values (SAMEORIGIN, DENY)', $found['framing']['message'] );
+		$this->assertArrayHasKey( 'duplicate_x_frame_options', $found );
+
+		$same = self::by_key( Grader::grade( array( 'X-Frame-Options' => array( 'SAMEORIGIN', 'sameorigin' ) ), true ) );
+		$this->assertSame( 'pass', $same['framing']['status'] );
+		$this->assertStringContainsString( 'same value', $same['duplicate_x_frame_options']['message'] );
+
+		$headers['Content-Security-Policy'] = "frame-ancestors 'self'";
+		$this->assertSame( 'pass', self::by_key( Grader::grade( $headers, true ) )['framing']['status'] );
+	}
+
+	public function test_single_headers_do_not_report_duplicates(): void {
+		foreach ( Grader::grade( self::perfect(), true )['findings'] as $finding ) {
+			$this->assertStringStartsNotWith( 'duplicate_', $finding['key'] );
+		}
+	}
 }

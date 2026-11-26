@@ -17,8 +17,11 @@ defined( 'ABSPATH' ) || exit;
  * Points: Content-Security-Policy 25, Strict-Transport-Security 20, framing
  * protection 15, X-Content-Type-Options 10, Referrer-Policy 10,
  * Permissions-Policy 10, Cross-Origin-Opener-Policy 5,
- * Cross-Origin-Resource-Policy 5. Information leaks are reported but do not
- * cost points.
+ * Cross-Origin-Resource-Policy 5. Information leaks and duplicate headers
+ * (the same single-value header sent twice, e.g. by the plugin and by the
+ * web server or CDN) are reported but do not cost points. Conflicting
+ * X-Frame-Options values make browsers ignore the header, so they fail the
+ * framing check.
  */
 final class Grader {
 
@@ -26,6 +29,18 @@ final class Grader {
 	const WARN = 'warn';
 	const FAIL = 'fail';
 	const INFO = 'info';
+
+	/**
+	 * Headers that take one value. Proxies join repeated headers with commas,
+	 * so a comma here means the header was sent more than once.
+	 */
+	const SINGLE_VALUE = array(
+		'strict-transport-security',
+		'x-frame-options',
+		'x-content-type-options',
+		'cross-origin-opener-policy',
+		'cross-origin-resource-policy',
+	);
 
 	/**
 	 * Grade thresholds (minimum score).
@@ -60,6 +75,9 @@ final class Grader {
 		);
 		foreach ( self::leaks( $h ) as $leak ) {
 			$findings[] = $leak;
+		}
+		foreach ( self::duplicates( $h ) as $duplicate ) {
+			$findings[] = $duplicate;
 		}
 
 		$score = 0;
@@ -107,7 +125,9 @@ final class Grader {
 					continue;
 				}
 				// Several policies can be joined with commas; CSP sources never contain one.
-				$items = 0 === strpos( $name, 'content-security-policy' ) ? explode( ',', (string) $item ) : array( (string) $item );
+				// Single-value headers contain a comma only when they were sent twice.
+				$split = 0 === strpos( $name, 'content-security-policy' ) || in_array( $name, self::SINGLE_VALUE, true );
+				$items = $split ? explode( ',', (string) $item ) : array( (string) $item );
 				foreach ( $items as $part ) {
 					if ( '' !== trim( $part ) ) {
 						$out[ $name ][] = trim( $part );
@@ -223,11 +243,15 @@ final class Grader {
 				return self::finding( 'framing', 'frame-ancestors / X-Frame-Options', self::PASS, $max, $max, __( 'frame-ancestors controls who can embed the site.', 'wp-security-headers' ), '' );
 			}
 		}
-		$xfo = strtoupper( (string) self::first( $h, 'x-frame-options' ) );
+		$values = array_values( array_unique( array_map( 'strtoupper', $h['x-frame-options'] ?? array() ) ) );
+		$fix    = __( 'Set "Framing" to "Same origin only" or "Nobody" in Settings > Security Headers.', 'wp-security-headers' );
+		if ( count( $values ) > 1 ) {
+			return self::finding( 'framing', 'frame-ancestors / X-Frame-Options', self::FAIL, 0, $max, sprintf( /* translators: %s: header values. */ __( 'X-Frame-Options is sent with conflicting values (%s), so browsers ignore it.', 'wp-security-headers' ), implode( ', ', $values ) ), __( 'Send X-Frame-Options from one place only (this plugin, the web server or the CDN), or add frame-ancestors to the Content-Security-Policy.', 'wp-security-headers' ) );
+		}
+		$xfo = $values[0] ?? '';
 		if ( in_array( $xfo, array( 'DENY', 'SAMEORIGIN' ), true ) ) {
 			return self::finding( 'framing', 'frame-ancestors / X-Frame-Options', self::PASS, $max, $max, __( 'X-Frame-Options blocks embedding by other sites.', 'wp-security-headers' ), '' );
 		}
-		$fix = __( 'Set "Framing" to "Same origin only" or "Nobody" in Settings > Security Headers.', 'wp-security-headers' );
 		if ( '' !== $xfo ) {
 			return self::finding( 'framing', 'frame-ancestors / X-Frame-Options', self::FAIL, 0, $max, __( 'X-Frame-Options has a value browsers no longer support (such as ALLOW-FROM).', 'wp-security-headers' ), $fix );
 		}
@@ -349,6 +373,34 @@ final class Grader {
 		$xss = self::first( $h, 'x-xss-protection' );
 		if ( null !== $xss && '0' !== trim( $xss ) ) {
 			$out[] = self::finding( 'x_xss_protection', 'X-XSS-Protection', self::INFO, 0, 0, __( 'This header is obsolete and its filter could be abused in old browsers.', 'wp-security-headers' ), __( 'Remove it or set it to 0, and rely on Content-Security-Policy.', 'wp-security-headers' ) );
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Single-value headers that were sent more than once. Informational only.
+	 *
+	 * @param array<string,string[]> $h Headers.
+	 * @return array<int,array<string,mixed>>
+	 */
+	private static function duplicates( array $h ): array {
+		$out = array();
+		foreach ( self::SINGLE_VALUE as $name ) {
+			$values = $h[ $name ] ?? array();
+			if ( count( $values ) < 2 ) {
+				continue;
+			}
+			$label    = implode( '-', array_map( 'ucfirst', explode( '-', $name ) ) );
+			$distinct = array_values( array_unique( array_map( 'strtolower', $values ) ) );
+			if ( 1 === count( $distinct ) ) {
+				/* translators: 1: header name, 2: number of times. */
+				$message = sprintf( __( '%1$s is sent %2$d times with the same value.', 'wp-security-headers' ), $label, count( $values ) );
+			} else {
+				/* translators: 1: header name, 2: number of times, 3: the values. */
+				$message = sprintf( __( '%1$s is sent %2$d times with different values (%3$s); browsers use the first one or ignore the header.', 'wp-security-headers' ), $label, count( $values ), implode( ' | ', $values ) );
+			}
+			$out[] = self::finding( 'duplicate_' . str_replace( '-', '_', $name ), $label, self::INFO, 0, 0, $message, __( 'The header is set in two places, usually this plugin and the web server or CDN. Switch it off in one of them.', 'wp-security-headers' ) );
 		}
 
 		return $out;

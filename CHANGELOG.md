@@ -6,6 +6,20 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- The scan reports single-value headers (`Strict-Transport-Security`,
+  `X-Frame-Options`, `X-Content-Type-Options`, `Cross-Origin-Opener-Policy`,
+  `Cross-Origin-Resource-Policy`) that are sent more than once, for example by the
+  plugin and by the web server or CDN, as information with a fix.
+
+### Fixed
+
+- A header sent twice and joined with a comma by the HTTP client
+  (`nosniff, nosniff`, `SAMEORIGIN, SAMEORIGIN`) failed its check; the first value
+  is now graded, as browsers do. Conflicting `X-Frame-Options` values now fail the
+  framing check, because browsers ignore the header in that case.
+
 ## [0.1.0] - 2026-11-20
 
 ### Added
