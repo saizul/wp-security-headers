@@ -161,6 +161,14 @@ Grades: **A** 90+, **B** 75+, **C** 60+, **D** 45+, **E** 30+, **F** below.
 `X-Powered-By`, `Server` versions and an active `X-XSS-Protection` are listed
 as information without costing points.
 
+**Duplicate headers.** When a single-value header (`Strict-Transport-Security`,
+`X-Frame-Options`, `X-Content-Type-Options`, `Cross-Origin-Opener-Policy`,
+`Cross-Origin-Resource-Policy`) arrives more than once, for example from this
+plugin and from the web server or CDN, the scan lists it as information and
+grades the first value, as browsers do. `X-Frame-Options` sent with conflicting
+values (such as `SAMEORIGIN` and `DENY`) is ignored by browsers, so the framing
+check fails unless `frame-ancestors` is set.
+
 ## Violation reports endpoint
 
 ```
@@ -271,8 +279,8 @@ gain; the other headers can still be sent in wp-admin.
 **Another plugin or my host already sends some of these headers.**
 The plugin replaces headers with the same name sent earlier by PHP. Headers
 added later by the web server or a CDN are added on top, which can create
-duplicates; the scan shows the final result. Switch off the header in one of
-the two places.
+duplicates; the scan shows the final result and lists every duplicated header.
+Switch off the header in one of the two places.
 
 **Is the report endpoint a risk?**
 It is public by design (browsers send reports anonymously), so it is
@@ -306,7 +314,6 @@ Ideas, many of them good first issues:
 - `wp security-headers violations [--format=json]` and `violations clear`.
 - `Cross-Origin-Embedder-Policy` with a clear warning about what it breaks.
 - Per-post-type or per-URL CSP overrides in the UI.
-- Detect duplicate headers sent by the server or CDN in the scan.
 - Hash-based CSP for known inline scripts.
 - Caddy and IIS (`web.config`) export formats.
 
